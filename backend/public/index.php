@@ -11,6 +11,10 @@ switch (true) {
         require_once '../app/routes/products.php';
         break;
 
+    case stripos($request, '/payments') !== false:
+        require_once '../app/routes/payments.php';
+        break;
+
     default:
         http_response_code(404);
         echo "404";
