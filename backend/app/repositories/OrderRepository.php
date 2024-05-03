@@ -194,7 +194,59 @@ class OrderRepository extends Database implements OrderRepositoryInterface
 
     public function getAll()
     {
+        $sql = 'SELECT
+        orders.id as order_id,
+        orders.customer_id,
+        customers.name as customer_name,
+        orders.payment_id,
+        paymentmethods.name as payment_method,
+        orders.installments,
+        orders.total,
+        orderdetails.product_id,
+        products.name as product_name,
+        orderdetails.quantity,
+        orderdetails.unit_price
+        FROM orders
+        JOIN customers ON orders.customer_id = customers.id
+        JOIN paymentmethods ON orders.payment_id = paymentmethods.id
+        JOIN orderdetails ON orders.id = orderdetails.order_id
+        JOIN products ON orderdetails.product_id = products.id';
+
+        $stmt = $this->getConnection()->prepare($sql);
+        $stmt->execute();
+
+        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $groupedOrders = [];
+        foreach ($orders as $order) {
+            $orderId = $order['order_id'];
+
+            if (!array_key_exists($orderId, $groupedOrders)) {
+                $groupedOrders[$orderId] = [
+                    'order_id' => $orderId,
+                    'customer_id' => $order['customer_id'],
+                    'customer_name' => $order['customer_name'],
+                    'payment_id' => $order['payment_id'],
+                    'payment_method' => $order['payment_method'],
+                    'installments' => $order['installments'],
+                    'total' => $order['total'],
+                    'products' => []
+                ];
+            }
+
+            $product = [
+                'product_id' => $order['product_id'],
+                'product_name' => $order['product_name'],
+                'quantity' => $order['quantity'],
+                'unit_price' => $order['unit_price']
+            ];
+
+            $groupedOrders[$orderId]['products'][] = $product;
+        }
+
+        return array_values($groupedOrders);
     }
+
     public function getOne($id)
     {
     }

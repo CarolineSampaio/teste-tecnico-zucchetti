@@ -57,6 +57,7 @@ class OrderService
 
     public function listAllOrders()
     {
+        return $this->orderRepository->getAll();
     }
 
     public function showOrder()

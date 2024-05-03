@@ -30,6 +30,8 @@ class OrderController
 
     public function index()
     {
+        $orders = $this->orderService->listAllOrders();
+        response($orders, 200);
     }
 
     public function show()
