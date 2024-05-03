@@ -1,6 +1,6 @@
 <?php
-require_once '../../config.php';
-require_once '../controllers/ProductController.php';
+require_once '../app/config.php';
+require_once '../app/controllers/ProductController.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 

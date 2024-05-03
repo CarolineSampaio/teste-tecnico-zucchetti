@@ -1,9 +1,9 @@
 <?php
 
-require_once '../models/Product.php';
-require_once '../services/ProductService.php';
-require_once '../repositories/ProductRepository.php';
-require_once '../../utils.php';
+require_once '../app/models/Product.php';
+require_once '../app/services/ProductService.php';
+require_once '../app/repositories/ProductRepository.php';
+require_once '../app/utils.php';
 
 class ProductController
 {

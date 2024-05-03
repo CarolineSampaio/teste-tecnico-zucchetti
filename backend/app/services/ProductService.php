@@ -1,5 +1,5 @@
 <?php
-require_once '../repositories/ProductRepository.php';
+require_once '../app/repositories/ProductRepository.php';
 
 class ProductService
 {

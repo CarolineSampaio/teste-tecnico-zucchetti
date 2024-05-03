@@ -1,7 +1,7 @@
 <?php
-require_once '../models/Database.php';
-require_once '../models/Product.php';
-require_once '../interfaces/ProductRepositoryInterface.php';
+require_once '../app/models/Database.php';
+require_once '../app/models/Product.php';
+require_once '../app/interfaces/ProductRepositoryInterface.php';
 
 class ProductRepository extends Database implements ProductRepositoryInterface
 {
@@ -21,9 +21,9 @@ class ProductRepository extends Database implements ProductRepositoryInterface
             )';
             $stmt = ($this->getConnection())->prepare($sql);
 
-            $stmt->bindParam(':name', $product->getName());
-            $stmt->bindParam(':price', $product->getPrice());
-            $stmt->bindParam(':quantity', $product->getQuantity());
+            $stmt->bindValue(':name', $product->getName());
+            $stmt->bindValue(':price', $product->getPrice());
+            $stmt->bindValue(':quantity', $product->getQuantity());
 
             $stmt->execute();
 
