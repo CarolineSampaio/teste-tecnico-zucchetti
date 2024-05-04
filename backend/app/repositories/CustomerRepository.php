@@ -5,7 +5,7 @@ require_once '../app/interfaces/CustomerRepositoryInterface.php';
 
 class CustomerRepository extends Database implements CustomerRepositoryInterface
 {
-    public function store($customer)
+    public function createOne($customer)
     {
         try {
             $sql = 'INSERT INTO customers 
@@ -56,7 +56,7 @@ class CustomerRepository extends Database implements CustomerRepositoryInterface
         }
     }
 
-    public function index()
+    public function getAll()
     {
         $sql = 'SELECT * FROM customers';
         $stmt = ($this->getConnection())->prepare($sql);
@@ -65,7 +65,7 @@ class CustomerRepository extends Database implements CustomerRepositoryInterface
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function show($id)
+    public function getOne($id)
     {
         $sql = 'SELECT * FROM customers WHERE id = :id';
         $stmt = ($this->getConnection())->prepare($sql);
@@ -75,10 +75,10 @@ class CustomerRepository extends Database implements CustomerRepositoryInterface
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $customer)
+    public function updateOne($id, $customer)
     {
         try {
-            $customerInDataBase = $this->show($id);
+            $customerInDataBase = $this->getOne($id);
 
             $sql = 'UPDATE customers SET 
             name = :name,
@@ -117,7 +117,7 @@ class CustomerRepository extends Database implements CustomerRepositoryInterface
         }
     }
 
-    public function delete($id)
+    public function deleteOne($id)
     {
         $sql = 'DELETE FROM customers WHERE id = :id';
         $stmt = ($this->getConnection())->prepare($sql);

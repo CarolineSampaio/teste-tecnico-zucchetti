@@ -50,19 +50,19 @@ class CustomerService
             $body->state
         );
 
-        $response = $this->customerRepository->store($customer);
+        $response = $this->customerRepository->createOne($customer);
 
         return $response;
     }
 
     public function listAllCustomers()
     {
-        return $this->customerRepository->index();
+        return $this->customerRepository->getAll();
     }
 
     public function showCustomer($id)
     {
-        $customer = $this->customerRepository->show($id);
+        $customer = $this->customerRepository->getOne($id);
         if (!$customer) responseError('Customer not found', 404);
 
         return $customer;
@@ -70,7 +70,7 @@ class CustomerService
 
     public function updateCustomer($id, $body)
     {
-        $customer = $this->customerRepository->show($id);
+        $customer = $this->customerRepository->getOne($id);
         if (!$customer) responseError('Customer not found', 404);
 
         $validationRules = [
@@ -86,6 +86,7 @@ class CustomerService
             'state' => FILTER_SANITIZE_SPECIAL_CHARS
         ];
 
+        $errors = [];
         foreach ($validationRules as $field => $filter) {
             if (isset($body->$field)) {
                 $value = sanitizeInput($body, $field, $filter);
@@ -99,16 +100,16 @@ class CustomerService
             responseError(implode(', ', $errors), 400);
         }
 
-        $response = $this->customerRepository->update($id, $body);
+        $response = $this->customerRepository->updateOne($id, $body);
 
         return $response;
     }
 
     public function deleteCustomer($id)
     {
-        $customer = $this->customerRepository->show($id);
+        $customer = $this->customerRepository->getOne($id);
         if (!$customer) responseError('Customer not found', 404);
 
-        return $this->customerRepository->delete($id);
+        return $this->customerRepository->deleteOne($id);
     }
 }

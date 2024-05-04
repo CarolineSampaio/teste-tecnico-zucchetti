@@ -2,9 +2,9 @@
 
 interface CustomerRepositoryInterface
 {
-    public function store($customer);
-    public function index();
-    public function show($id);
-    public function update($id, $customer);
-    public function delete($id);
+    public function createOne($customer);
+    public function getAll();
+    public function getOne($id);
+    public function updateOne($id, $customer);
+    public function deleteOne($id);
 }

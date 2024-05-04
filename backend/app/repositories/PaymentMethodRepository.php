@@ -5,7 +5,7 @@ require_once '../app/interfaces/PaymentMethodRepositoryInterface.php';
 
 class PaymentMethodRepository extends Database implements PaymentMethodRepositoryInterface
 {
-    public function store($paymentMethod)
+    public function createOne($paymentMethod)
     {
         try {
             $sql = 'INSERT INTO paymentmethods 
@@ -33,7 +33,7 @@ class PaymentMethodRepository extends Database implements PaymentMethodRepositor
         }
     }
 
-    public function index()
+    public function getAll()
     {
         $sql = 'SELECT * FROM paymentmethods';
         $stmt = ($this->getConnection())->prepare($sql);
@@ -42,7 +42,7 @@ class PaymentMethodRepository extends Database implements PaymentMethodRepositor
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function show($id)
+    public function getOne($id)
     {
         $sql = 'SELECT * FROM paymentmethods WHERE id = :id';
         $stmt = ($this->getConnection())->prepare($sql);
@@ -52,10 +52,10 @@ class PaymentMethodRepository extends Database implements PaymentMethodRepositor
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $paymentMethod)
+    public function updateOne($id, $paymentMethod)
     {
         try {
-            $paymentMethodInDataBase = $this->show($id);
+            $paymentMethodInDataBase = $this->getOne($id);
 
             $sql = 'UPDATE paymentmethods SET 
             name = :name, 
@@ -78,7 +78,7 @@ class PaymentMethodRepository extends Database implements PaymentMethodRepositor
         }
     }
 
-    public function delete($id)
+    public function deleteOne($id)
     {
         $sql = 'DELETE FROM paymentmethods WHERE id = :id';
         $stmt = ($this->getConnection())->prepare($sql);

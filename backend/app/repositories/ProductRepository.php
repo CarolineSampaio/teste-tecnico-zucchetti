@@ -5,7 +5,7 @@ require_once '../app/interfaces/ProductRepositoryInterface.php';
 
 class ProductRepository extends Database implements ProductRepositoryInterface
 {
-    public function store($product)
+    public function createOne($product)
     {
         try {
             $sql = 'INSERT INTO products
@@ -34,7 +34,7 @@ class ProductRepository extends Database implements ProductRepositoryInterface
         }
     }
 
-    public function index()
+    public function getAll()
     {
         $sql = 'SELECT * FROM products';
         $stmt = ($this->getConnection())->prepare($sql);
@@ -43,7 +43,7 @@ class ProductRepository extends Database implements ProductRepositoryInterface
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function show($id)
+    public function getOne($id)
     {
         $sql = 'SELECT * FROM products WHERE id = :id';
         $stmt = ($this->getConnection())->prepare($sql);
@@ -53,10 +53,10 @@ class ProductRepository extends Database implements ProductRepositoryInterface
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $product)
+    public function updateOne($id, $product)
     {
         try {
-            $productInDataBase = $this->show($id);
+            $productInDataBase = $this->getOne($id);
 
             $sql = 'UPDATE products SET 
             name = :name, 
@@ -81,7 +81,7 @@ class ProductRepository extends Database implements ProductRepositoryInterface
         }
     }
 
-    public function delete($id)
+    public function deleteOne($id)
     {
         $sql = 'DELETE FROM products WHERE id = :id';
         $stmt = ($this->getConnection())->prepare($sql);

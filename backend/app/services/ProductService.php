@@ -37,19 +37,19 @@ class ProductService
             $body->quantity
         );
 
-        $response = $this->productRepository->store($product);
+        $response = $this->productRepository->createOne($product);
 
         return $response;
     }
 
     public function listAllProducts()
     {
-        return $this->productRepository->index();
+        return $this->productRepository->getAll();
     }
 
     public function showProduct($id)
     {
-        $product = $this->productRepository->show($id);
+        $product = $this->productRepository->getOne($id);
         if (!$product) responseError('Product not found', 404);
 
         return $product;
@@ -57,7 +57,7 @@ class ProductService
 
     public function updateProduct($id, $body)
     {
-        $product = $this->productRepository->show($id);
+        $product = $this->productRepository->getOne($id);
         if (!$product) responseError('Product not found', 404);
 
         $validationRules = [
@@ -80,16 +80,16 @@ class ProductService
             responseError(implode(', ', $errors), 400);
         }
 
-        $response = $this->productRepository->update($id, $body);
+        $response = $this->productRepository->updateOne($id, $body);
 
         return $response;
     }
 
     public function deleteProduct($id)
     {
-        $product = $this->productRepository->show($id);
+        $product = $this->productRepository->getOne($id);
         if (!$product) responseError('Product not found', 404);
 
-        return $this->productRepository->delete($id);
+        return $this->productRepository->deleteOne($id);
     }
 }

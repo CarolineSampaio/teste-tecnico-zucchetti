@@ -2,9 +2,9 @@
 
 interface ProductRepositoryInterface
 {
-    public function store($product);
-    public function index();
-    public function show($id);
-    public function update($id, $product);
-    public function delete($id);
+    public function createOne($product);
+    public function getAll();
+    public function getOne($id);
+    public function updateOne($id, $product);
+    public function deleteOne($id);
 }

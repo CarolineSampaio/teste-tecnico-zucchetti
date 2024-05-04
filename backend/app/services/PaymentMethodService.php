@@ -34,19 +34,19 @@ class PaymentMethodService
             $data->max_installments
         );
 
-        $response = $this->paymentMethodRepository->store($paymentMethod);
+        $response = $this->paymentMethodRepository->createOne($paymentMethod);
 
         return $response;
     }
 
     public function listAllPaymentMethods()
     {
-        return $this->paymentMethodRepository->index();
+        return $this->paymentMethodRepository->getAll();
     }
 
     public function showPaymentMethod($id)
     {
-        $paymentMethod = $this->paymentMethodRepository->show($id);
+        $paymentMethod = $this->paymentMethodRepository->getOne($id);
         if (!$paymentMethod) responseError('Payment method not found', 404);
 
         return $paymentMethod;
@@ -54,7 +54,7 @@ class PaymentMethodService
 
     public function updatePaymentMethod($id, $body)
     {
-        $paymentMethod = $this->paymentMethodRepository->show($id);
+        $paymentMethod = $this->paymentMethodRepository->getOne($id);
         if (!$paymentMethod) responseError('Payment method not found', 404);
 
         $validationRules = [
@@ -76,16 +76,16 @@ class PaymentMethodService
             responseError(implode(', ', $errors), 400);
         }
 
-        $response = $this->paymentMethodRepository->update($id, $body);
+        $response = $this->paymentMethodRepository->updateOne($id, $body);
 
         return $response;
     }
 
     public function deletePaymentMethod($id)
     {
-        $paymentMethod = $this->paymentMethodRepository->show($id);
+        $paymentMethod = $this->paymentMethodRepository->getOne($id);
         if (!$paymentMethod) responseError('Payment method not found', 404);
 
-        return $this->paymentMethodRepository->delete($id);
+        return $this->paymentMethodRepository->deleteOne($id);
     }
 }

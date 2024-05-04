@@ -2,9 +2,9 @@
 
 interface PaymentMethodRepositoryInterface
 {
-    public function store($paymentMethod);
-    public function index();
-    public function show($id);
-    public function update($id, $paymentMethod);
-    public function delete($id);
+    public function createOne($paymentMethod);
+    public function getAll();
+    public function getOne($id);
+    public function updateOne($id, $paymentMethod);
+    public function deleteOne($id);
 }
