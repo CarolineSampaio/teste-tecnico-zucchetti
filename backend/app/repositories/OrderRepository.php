@@ -192,7 +192,7 @@ class OrderRepository extends Database implements OrderRepositoryInterface
         }
     }
 
-    public function getAll()
+    public function getOrdersAndDetails($order_id = null, $customer_id = null)
     {
         $sql = 'SELECT
         orders.id as order_id,
@@ -212,11 +212,26 @@ class OrderRepository extends Database implements OrderRepositoryInterface
         JOIN orderdetails ON orders.id = orderdetails.order_id
         JOIN products ON orderdetails.product_id = products.id';
 
-        $stmt = $this->getConnection()->prepare($sql);
+        if ($order_id) {
+            $sql .= ' WHERE orders.id = :order_id';
+            $stmt = $this->getConnection()->prepare($sql);
+            $stmt->bindValue(':order_id', $order_id);
+        } elseif ($customer_id) {
+            $sql .= ' WHERE orders.customer_id = :customer_id';
+            $sql .= ' ORDER BY orders.id ASC';
+            $stmt = $this->getConnection()->prepare($sql);
+            $stmt->bindValue(':customer_id', $customer_id);
+        } else {
+            $stmt = $this->getConnection()->prepare($sql);
+        }
+
         $stmt->execute();
 
-        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    public function serializeOrders($orders)
+    {
         $groupedOrders = [];
         foreach ($orders as $order) {
             $orderId = $order['order_id'];
@@ -247,9 +262,24 @@ class OrderRepository extends Database implements OrderRepositoryInterface
         return array_values($groupedOrders);
     }
 
+    public function getAll()
+    {
+        $orders = $this->getOrdersAndDetails();
+        return $this->serializeOrders($orders);
+    }
+
     public function getOne($id)
     {
+        $orders = $this->getOrdersAndDetails(order_id: $id);
+        return $this->serializeOrders($orders);
     }
+
+    public function getOneByCustomerId($customerId)
+    {
+        $orders = $this->getOrdersAndDetails(customer_id: $customerId);
+        return $this->serializeOrders($orders);
+    }
+
     public function updateOne($id, $order)
     {
     }

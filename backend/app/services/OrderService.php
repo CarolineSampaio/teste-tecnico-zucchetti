@@ -60,8 +60,14 @@ class OrderService
         return $this->orderRepository->getAll();
     }
 
-    public function showOrder()
+    public function showOrder($orderId)
     {
+        return $this->orderRepository->getOne($orderId);
+    }
+
+    public function showOrderByCustomerId($costumerId)
+    {
+        return $this->orderRepository->getOneByCustomerId($costumerId);
     }
 
     public function updateOrder()

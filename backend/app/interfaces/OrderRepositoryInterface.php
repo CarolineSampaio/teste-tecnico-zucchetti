@@ -12,6 +12,7 @@ interface OrderRepositoryInterface
 
     public function getAll();
     public function getOne($id);
+    public function getOneByCustomerId($customerId);
     public function updateOne($id, $order);
     public function deleteOne($id);
 }

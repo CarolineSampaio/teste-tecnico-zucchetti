@@ -36,6 +36,20 @@ class OrderController
 
     public function show()
     {
+        $orderId = sanitizeInput($_GET, 'id', FILTER_SANITIZE_NUMBER_INT, false);
+        $customerId = sanitizeInput($_GET, 'customer_id', FILTER_SANITIZE_NUMBER_INT, false);
+
+        if ($customerId) {
+            $order = $this->orderService->showOrderByCustomerId($customerId);
+        } elseif ($orderId) {
+            $order = $this->orderService->showOrder($orderId);
+        }
+
+        if (!$order) {
+            responseError('Order not found', 404);
+        }
+
+        response($order, 200);
     }
 
     public function update()
