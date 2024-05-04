@@ -21,11 +21,17 @@ class OrderRepository extends Database implements OrderRepositoryInterface
 
         $total = 0;
         foreach ($products as $product) {
-            $price = array_filter($prices, function ($item) use ($product) {
-                return $item['id'] == $product->product_id;
-            });
-
-            $total += $price[0]['price'] * $product->quantity;
+            $found = false;
+            foreach ($prices as $price) {
+                if ($price['id'] == $product->product_id) {
+                    $total += $price['price'] * $product->quantity;
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                return false;
+            }
         }
         return $total;
     }
@@ -120,9 +126,8 @@ class OrderRepository extends Database implements OrderRepositoryInterface
 
         $productData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($productData['quantity'] < $product->quantity) {
-            return false;
-        }
+        if (!$productData) return false;
+        if ($productData['quantity'] < $product->quantity) return false;
 
         $sql = 'UPDATE products SET quantity = quantity - :quantity WHERE id = :id';
         $stmt = $this->getConnection()->prepare($sql);
@@ -142,9 +147,8 @@ class OrderRepository extends Database implements OrderRepositoryInterface
 
         $max_installments = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($installments > $max_installments['max_installments']) {
-            return false;
-        }
+        if (!$max_installments) return false;
+        if ($installments > $max_installments['max_installments']) return false;
 
         return true;
     }
@@ -157,14 +161,14 @@ class OrderRepository extends Database implements OrderRepositoryInterface
             $verifyInstallments = $this->verifyInstallments($order->getInstallments(), $order->getPaymentId());
             if (!$verifyInstallments) {
                 $this->getConnection()->rollBack();
-                return ['success' => false, 'message' => 'Installments is greater than the maximum allowed'];
+                return ['success' => false, 'message' => 'The installments are greater than the maximum allowed or the payment_id does not exist'];
             }
 
             foreach ($order->getProducts() as $product) {
                 $hasStock = $this->decreaseInventory($product);
                 if (!$hasStock) {
                     $this->getConnection()->rollBack();
-                    return ['success' => false, 'message' => 'Insufficient stock for product_id ' . $product->product_id];
+                    return ['success' => false, 'message' => 'Insufficient or non-existent stock for product_id ' . $product->product_id];
                 }
             }
 
