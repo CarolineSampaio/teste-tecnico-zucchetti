@@ -27,4 +27,3 @@ ENV COMPOSER_HOME /composer
 ENV PATH $PATH:/composer/vendor/bin
 
 WORKDIR /var/www
-EXPOSE 5173
