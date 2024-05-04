@@ -323,7 +323,25 @@ class OrderRepository extends Database implements OrderRepositoryInterface
             return ['success' => false];
         }
     }
+
     public function deleteOne($id)
     {
+        try {
+            $this->getConnection()->beginTransaction();
+
+            //add logic to return products to stock when the order is deleted
+
+            $sql = 'DELETE FROM orders WHERE id = :id ';
+            $stmt = $this->getConnection()->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $this->getConnection()->commit();
+            return ['success' => true];
+        } catch (PDOException $error) {
+            $this->getConnection()->rollBack();
+            debug($error->getMessage());
+            return ['success' => false];
+        }
     }
 }

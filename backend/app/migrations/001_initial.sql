@@ -51,6 +51,6 @@ CREATE TABLE orderDetails (
 	unit_price float NOT NULL,
 	created_at timestamp WITH time zone DEFAULT NOW(),
     updated_at timestamp WITH time zone DEFAULT NOW(),
-    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id)
 );

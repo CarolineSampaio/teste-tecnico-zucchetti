@@ -68,5 +68,10 @@ class OrderController
 
     public function delete()
     {
+        $id = sanitizeInput($_GET, 'id', FILTER_SANITIZE_NUMBER_INT, false);
+        if (!$id) responseError('id is required', 400);
+
+        $this->orderService->deleteOrder($id);
+        response(['message' => ''], 204);
     }
 }

@@ -98,7 +98,11 @@ class OrderService
         return $this->orderRepository->updateOne($id, $body);
     }
 
-    public function deleteOrder()
+    public function deleteOrder($id)
     {
+        $order = $this->showOrder($id);
+        if (!$order) responseError('Order not found', 404);
+
+        return $this->orderRepository->deleteOne($id);
     }
 }
