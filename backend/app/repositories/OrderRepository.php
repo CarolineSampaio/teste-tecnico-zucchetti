@@ -116,7 +116,7 @@ class OrderRepository extends Database implements OrderRepositoryInterface
         return ['success' => true];
     }
 
-    public function decreaseInventory($product)
+    public function updateInventory($product, $decrease = true)
     {
         # FOR UPDATE  to lock the row
         $sql = 'SELECT * FROM products WHERE id = :id FOR UPDATE';
@@ -127,15 +127,26 @@ class OrderRepository extends Database implements OrderRepositoryInterface
         $productData = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$productData) return false;
-        if ($productData['quantity'] < $product->quantity) return false;
 
-        $sql = 'UPDATE products SET quantity = quantity - :quantity WHERE id = :id';
-        $stmt = $this->getConnection()->prepare($sql);
-        $stmt->bindValue(':id', $product->product_id);
-        $stmt->bindValue(':quantity', $product->quantity);
-        $stmt->execute();
+        if ($decrease) {
+            if ($productData['quantity'] < $product->quantity) return false;
 
-        return true;
+            $sql = 'UPDATE products SET quantity = quantity - :quantity WHERE id = :id';
+            $stmt = $this->getConnection()->prepare($sql);
+            $stmt->bindValue(':id', $product->product_id);
+            $stmt->bindValue(':quantity', $product->quantity);
+            $stmt->execute();
+
+            return true;
+        } else {
+            $sql = 'UPDATE products SET quantity = quantity + :quantity WHERE id = :id';
+            $stmt = $this->getConnection()->prepare($sql);
+            $stmt->bindValue(':id', $product->product_id);
+            $stmt->bindValue(':quantity', $product->quantity);
+            $stmt->execute();
+
+            return true;
+        }
     }
 
     public function verifyInstallments($installments, $payment_id)
@@ -165,7 +176,7 @@ class OrderRepository extends Database implements OrderRepositoryInterface
             }
 
             foreach ($order->getProducts() as $product) {
-                $hasStock = $this->decreaseInventory($product);
+                $hasStock = $this->updateInventory($product);
                 if (!$hasStock) {
                     $this->getConnection()->rollBack();
                     return ['success' => false, 'message' => 'Insufficient or non-existent stock for product_id ' . $product->product_id];
@@ -329,7 +340,10 @@ class OrderRepository extends Database implements OrderRepositoryInterface
         try {
             $this->getConnection()->beginTransaction();
 
-            //add logic to return products to stock when the order is deleted
+            $order = $this->getOne($id);
+            foreach ($order[0]['products'] as $product) {
+                $this->updateInventory((object)['product_id' => $product['product_id'], 'quantity' => $product['quantity']], false);
+            }
 
             $sql = 'DELETE FROM orders WHERE id = :id ';
             $stmt = $this->getConnection()->prepare($sql);

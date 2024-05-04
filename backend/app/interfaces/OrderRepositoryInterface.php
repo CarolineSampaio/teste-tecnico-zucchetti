@@ -2,7 +2,7 @@
 
 interface OrderRepositoryInterface
 {
-    public function decreaseInventory($product);
+    public function updateInventory($product, $decrease);
     public function getProductsTotal($products);
     public function getProductPrice($productId);
 
