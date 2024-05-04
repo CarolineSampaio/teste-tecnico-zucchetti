@@ -70,8 +70,32 @@ class OrderService
         return $this->orderRepository->getOneByCustomerId($costumerId);
     }
 
-    public function updateOrder()
+    public function updateOrder($id, $body)
     {
+        $order = $this->showOrder($id);
+        if (!$order) responseError('Order not found', 404);
+
+        $validationRules = [
+            'customer_id' => FILTER_SANITIZE_NUMBER_INT,
+            'payment_id' => FILTER_SANITIZE_NUMBER_INT,
+            'installments' => FILTER_SANITIZE_NUMBER_INT
+        ];
+
+        $errors = [];
+        foreach ($validationRules as $field => $filter) {
+            if (isset($body->$field)) {
+                $value = filter_var($body->$field, $filter);
+                if (!$value) {
+                    $errors[] = "$field must be a valid integer";
+                }
+            }
+        }
+
+        if (!empty($errors)) {
+            responseError(implode(', ', $errors), 400);
+        }
+
+        return $this->orderRepository->updateOne($id, $body);
     }
 
     public function deleteOrder()

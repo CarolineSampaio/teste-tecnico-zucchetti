@@ -286,6 +286,42 @@ class OrderRepository extends Database implements OrderRepositoryInterface
 
     public function updateOne($id, $order)
     {
+        try {
+            $this->getConnection()->beginTransaction();
+
+            $orderInDataBase = $this->getOne($id);
+
+            if (isset($order->payment_id) || isset($order->installments)) {
+                $verifyInstallments = $this->verifyInstallments($order->installments ?? $orderInDataBase[0]['installments'], $order->payment_id ?? $orderInDataBase[0]['payment_id']);
+                if (!$verifyInstallments) {
+                    $this->getConnection()->rollBack();
+                    return ['success' => false, 'message' => 'The installments are greater than the maximum allowed or the payment_id does not exist'];
+                }
+            }
+
+            $sql = 'UPDATE orders SET 
+            customer_id = :customer_id,
+            payment_id = :payment_id,
+            installments = :installments,
+            updated_at = NOW()
+            WHERE id = :id';
+
+            $stmt = $this->getConnection()->prepare($sql);
+
+            $stmt->bindValue(":customer_id", $order->customer_id ?? $orderInDataBase[0]['customer_id']);
+            $stmt->bindValue(":payment_id", $order->payment_id ?? $orderInDataBase[0]['payment_id']);
+            $stmt->bindValue(":installments", $order->installments ?? $orderInDataBase[0]['installments']);
+            $stmt->bindValue(':id', $id);
+
+            $stmt->execute();
+
+            $this->getConnection()->commit();
+            return ['success' => true];
+        } catch (PDOException $error) {
+            $this->getConnection()->rollBack();
+            debug($error->getMessage());
+            return ['success' => false];
+        }
     }
     public function deleteOne($id)
     {

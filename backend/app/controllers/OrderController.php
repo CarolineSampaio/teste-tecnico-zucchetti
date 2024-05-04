@@ -54,6 +54,16 @@ class OrderController
 
     public function update()
     {
+        $id = sanitizeInput($_GET, 'id', FILTER_SANITIZE_NUMBER_INT, false);
+        if (!$id) responseError('id is required', 400);
+
+        $response = $this->orderService->updateOrder($id, getBody());
+
+        if ($response['success'] === true) {
+            response(["message" => "Order updated"], 201);
+        } else {
+            responseError($response['message'], 400);
+        }
     }
 
     public function delete()
