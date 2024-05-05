@@ -51,7 +51,7 @@
       <div>
         <label>Products</label>
         <span class="textError">{{ errors.products }}</span>
-        <table class="productsList">
+        <table class="productsList" :class="{ 'disabled-table': orderId }">
           <thead>
             <tr>
               <th>Name</th>
@@ -435,5 +435,10 @@ router-link:visited {
   font-size: 1.2rem;
   font-weight: 700;
   padding: 20px 0px;
+}
+
+.disabled-table {
+  pointer-events: none;
+  opacity: 0.5;
 }
 </style>
