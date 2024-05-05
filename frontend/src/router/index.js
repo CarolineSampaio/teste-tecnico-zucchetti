@@ -6,6 +6,7 @@ import ProductsNew from '../views/ProductsNew.vue'
 import PaymentsList from '../views/PaymentsList.vue'
 import PaymentsNew from '../views/PaymentsNew.vue'
 import OrdersList from '../views/OrdersList.vue'
+import OrdersNew from '../views/OrdersNew.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,6 +60,16 @@ const router = createRouter({
       path: '/orders',
       name: 'list orders',
       component: OrdersList
+    },
+    {
+      path: '/order/new',
+      name: 'add order',
+      component: OrdersNew
+    },
+    {
+      path: '/order/:id/edit',
+      name: 'edit order',
+      component: OrdersNew
     }
   ]
 })
