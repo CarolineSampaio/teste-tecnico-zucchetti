@@ -3,7 +3,9 @@
     <h1>Customers List</h1>
 
     <div class="align-end">
-      <button>Cadastrar Cliente</button>
+      <router-link to="/customer/new">
+        <button>New Customer</button>
+      </router-link>
     </div>
 
     <table class="customersList">
@@ -32,7 +34,7 @@
                 <p>{{ customer.city }} - {{ customer.state }}</p>
               </div>
               <p class="showMore" @click="toggleShowMore(customer)">
-                {{ customer.showMore ? 'Ver menos' : 'Ver mais' }}
+                {{ customer.showMore ? 'View less' : 'View more' }}
               </p>
             </div>
           </td>
@@ -49,7 +51,7 @@
 </template>
 
 <script>
-import CustomerService from '../services/Customers/CustomerService'
+import CustomerService from '@/services/Customers/CustomerService'
 
 export default {
   data() {
@@ -80,12 +82,6 @@ export default {
 </script>
 
 <style>
-h1 {
-  color: #1f5d82;
-  margin: 40px 0px 20px;
-  margin-left: 24px;
-}
-
 .buttons {
   display: flex;
   justify-content: center;
@@ -126,25 +122,6 @@ h1 {
 
 .customersList tbody tr:nth-child(even) {
   background-color: #f1f1f1;
-}
-
-button {
-  height: 35px;
-  padding: 0px 20px;
-  background-color: #fdfdfd;
-
-  color: #353535;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border: 1px solid #c0c0c0;
-  border-radius: 4px;
-}
-
-button:hover {
-  background-color: #1f5d82;
-  padding: 0px 21px;
-  color: white;
-  border: none;
 }
 
 .showMore {
