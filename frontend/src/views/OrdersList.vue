@@ -74,6 +74,16 @@ export default {
         style: 'currency',
         currency: 'BRL'
       }).format(total)
+    },
+
+    deleteOrder(id) {
+      OrderService.deleteOne(id)
+        .then(() => {
+          this.getOrders()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }
