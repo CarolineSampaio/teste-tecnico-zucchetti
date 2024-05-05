@@ -135,9 +135,9 @@ export default {
     this.getAllPayments()
     this.getAllProducts()
 
-    // if (this.orderId) {
-    //   this.getProduct()
-    // }
+    if (this.orderId) {
+      this.getOrder()
+    }
   },
 
   computed: {
@@ -247,15 +247,30 @@ export default {
       }
     },
 
-    // getProduct() {
-    //   ProductService.getOne(this.orderId)
-    //     .then((response) => {
-    //       this.product = response
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // },
+    getOrder() {
+      OrderService.getOne(this.orderId)
+        .then((response) => {
+          this.order.customer_id = response.customer_id
+          this.order.payment_id = response.payment_id
+          this.updateMaxInstallments()
+          this.order.installments = response.installments
+
+          this.order.products = response.products.map((product) => ({
+            product_id: product.product_id,
+            quantity: product.quantity
+          }))
+
+          this.products.forEach((product) => {
+            const orderProduct = this.order.products.find(
+              (orderProduct) => orderProduct.product_id === product.id
+            )
+            if (orderProduct) product.selectedQuantity = orderProduct.quantity
+          })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
 
     validateSync() {
       this.errors = {}
@@ -278,18 +293,18 @@ export default {
         if (this.validateSync() === false) return
         this.order.installments = parseInt(this.order.installments)
 
-        // if (this.orderId) {
-        //   ProductService.updateOne(this.orderId, this.product)
-        //     .then(() => {
-        //       this.errors = {}
-        //       alert('Product updated successfully!')
-        //     })
-        //     .catch((error) => {
-        //       alert('Error updating product!')
-        //       console.log(error)
-        //     })
-        //   return
-        // }
+        if (this.orderId) {
+          OrderService.updateOne(this.orderId, this.order)
+            .then(() => {
+              this.errors = {}
+              alert('Order updated successfully!')
+            })
+            .catch((error) => {
+              alert('Error updating order!')
+              console.log(error)
+            })
+          return
+        }
 
         OrderService.createOne(this.order)
           .then(() => {

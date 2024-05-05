@@ -13,7 +13,7 @@ class OrderService {
 
   async getOne(id) {
     const response = await api.get(`orders?id=${id}`)
-    return response.data
+    return response.data[0]
   }
 
   async updateOne(id, body) {
