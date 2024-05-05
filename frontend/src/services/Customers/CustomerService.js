@@ -20,6 +20,11 @@ class CustomerService {
     const response = await api.put(`customers?id=${id}`, body)
     return response.data
   }
+
+  async deleteOne(id) {
+    const response = await api.delete(`customers?id=${id}`)
+    return response.data
+  }
 }
 
 export default new CustomerService()

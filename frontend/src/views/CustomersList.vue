@@ -44,7 +44,7 @@
                 <button>Edit</button>
               </router-link>
 
-              <button>Delete</button>
+              <button @click="deleteCustomer(customer.id)">Delete</button>
             </div>
           </td>
         </tr>
@@ -77,8 +77,19 @@ export default {
           console.log(e)
         })
     },
+
     toggleShowMore(customer) {
       customer.showMore = !customer.showMore
+    },
+
+    deleteCustomer(customerId) {
+      CustomerService.deleteOne(customerId)
+        .then(() => {
+          this.getAllCustomers()
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     }
   }
 }

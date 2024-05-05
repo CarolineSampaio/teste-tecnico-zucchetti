@@ -170,7 +170,6 @@ export default {
       CustomerService.getOne(this.customerId)
         .then((response) => {
           this.customer = response
-          console.log(response)
         })
         .catch((error) => {
           console.log(error)
