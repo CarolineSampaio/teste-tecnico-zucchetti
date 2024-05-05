@@ -13,7 +13,7 @@
         <tr>
           <th>Id</th>
           <th>Name</th>
-          <th>max installments</th>
+          <th>Max Installments</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -66,7 +66,7 @@ export default {
     deletePayment(id) {
       PaymentService.deleteOne(id)
         .then(() => {
-          this.getpayments()
+          this.getPayments()
         })
         .catch((error) => {
           console.log(error)
