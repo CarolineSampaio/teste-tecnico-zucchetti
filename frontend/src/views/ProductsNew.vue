@@ -1,8 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <main>
-    <h1>{{ productId ? 'Edit Product' : 'New Product' }}</h1>
-
+  <h1>{{ productId ? 'Edit Product' : 'New Product' }}</h1>
+  <main class="content">
     <form @submit.prevent="handleSubmit" class="formNew">
       <div class="formElement">
         <div>
@@ -19,7 +18,7 @@
 
       <div class="formElement">
         <div>
-          <label for="quantity">quantity</label>
+          <label for="quantity">Quantity</label>
           <input
             id="quantity"
             v-model="product.quantity"

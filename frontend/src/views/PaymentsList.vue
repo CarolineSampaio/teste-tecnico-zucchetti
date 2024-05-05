@@ -1,7 +1,6 @@
 <template>
-  <main>
-    <h1>Payment Methods List</h1>
-
+  <h1>Payment Methods List</h1>
+  <main class="content">
     <div class="align-end">
       <router-link to="/payment/new">
         <button>New Payment Method</button>

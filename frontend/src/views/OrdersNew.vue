@@ -1,7 +1,6 @@
 <template>
-  <main>
-    <h1>{{ orderId ? 'Edit Order' : 'New Order' }}</h1>
-
+  <h1>{{ orderId ? 'Edit Order' : 'New Order' }}</h1>
+  <main class="content">
     <form @submit.prevent="handleSubmit" class="formNew">
       <div class="formElement">
         <div>
@@ -50,7 +49,8 @@
       </div>
 
       <div>
-        <label>Available Products</label>
+        <label>Products</label>
+        <span class="textError">{{ errors.products }}</span>
         <table class="productsList">
           <thead>
             <tr>
@@ -61,7 +61,6 @@
             </tr>
           </thead>
           <tbody>
-            <span class="textError">{{ errors.products }}</span>
             <tr v-for="product in products" :key="product.id">
               <td>{{ product.name }}</td>
               <td>
@@ -392,6 +391,7 @@ router-link:visited {
 }
 
 .textError {
+  display: block;
   color: red;
   font-size: 12px;
 }
@@ -400,9 +400,8 @@ router-link:visited {
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
   overflow: scroll;
-  margin-bottom: 20px;
+  margin: 0px;
 }
 
 .productsList tr {
@@ -413,7 +412,7 @@ router-link:visited {
 
 .productsList th,
 .productsList td {
-  padding: 14px;
+  padding: 10px;
   text-align: center;
   color: #1f5d82;
 }
@@ -435,6 +434,6 @@ router-link:visited {
   color: #1f5d82;
   font-size: 1.2rem;
   font-weight: 700;
-  padding: 40px 0px;
+  padding: 20px 0px;
 }
 </style>

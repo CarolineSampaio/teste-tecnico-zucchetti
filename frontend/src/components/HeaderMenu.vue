@@ -23,11 +23,10 @@ export default {
 header {
   height: 80px;
   background-color: #036ab0;
-  margin: 0 -6% !important;
 }
 
 img {
-  margin: 0 8%;
+  margin: 0 0 0 8%;
   padding: 5px;
   height: 80px;
 }
@@ -41,7 +40,7 @@ img {
 nav {
   display: flex;
   gap: 20px;
-  margin: 0 8%;
+  margin: 0 8% 0 0;
 }
 
 nav a {

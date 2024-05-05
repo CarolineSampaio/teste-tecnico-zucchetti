@@ -1,8 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <main>
-    <h1>{{ customerId ? 'Edit Customer' : 'New Customer' }}</h1>
-
+  <h1>{{ customerId ? 'Edit Customer' : 'New Customer' }}</h1>
+  <main class="content">
     <form @submit.prevent="handleSubmit" class="formNew">
       <div class="formElement">
         <div>

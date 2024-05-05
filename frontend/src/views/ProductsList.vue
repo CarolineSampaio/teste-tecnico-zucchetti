@@ -1,7 +1,6 @@
 <template>
-  <main>
-    <h1>Products List</h1>
-
+  <h1>Products List</h1>
+  <main class="content">
     <div class="align-end">
       <router-link to="/product/new">
         <button>New Product</button>

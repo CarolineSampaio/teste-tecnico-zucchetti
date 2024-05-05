@@ -1,8 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <main>
-    <h1>{{ paymentId ? 'Edit Payment Method' : 'New Payment Method' }}</h1>
-
+  <h1>{{ paymentId ? 'Edit Payment Method' : 'New Payment Method' }}</h1>
+  <main class="content">
     <form @submit.prevent="handleSubmit" class="formNew">
       <div class="formElement">
         <div>

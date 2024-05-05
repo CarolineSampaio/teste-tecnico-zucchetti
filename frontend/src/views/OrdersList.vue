@@ -1,7 +1,6 @@
 <template>
-  <main>
-    <h1>Orders List</h1>
-
+  <h1>Orders List</h1>
+  <main class="content">
     <div class="align-end">
       <router-link to="/order/new">
         <button>New Order</button>
@@ -14,7 +13,7 @@
           <th>Id</th>
           <th>Customer Name</th>
           <th>Payment Method</th>
-          <th>installments</th>
+          <th>Installments</th>
           <th>Total</th>
           <th>Actions</th>
         </tr>
