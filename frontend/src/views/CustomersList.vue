@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import CustomerService from '@/services/Customers/CustomerService'
+import CustomerService from '@/services/CustomerService'
 
 export default {
   data() {

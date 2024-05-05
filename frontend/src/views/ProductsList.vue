@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import ProductService from '@/services/Products/ProductService'
+import ProductService from '@/services/ProductService'
 
 export default {
   data() {

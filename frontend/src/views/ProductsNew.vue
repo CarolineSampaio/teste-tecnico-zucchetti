@@ -53,7 +53,7 @@ import * as yup from 'yup'
 import { captureErrorYup } from '@/utils/captureErrorYup'
 import { schemaCreateProduct } from '@/validations/productCreate.validations.js'
 
-import ProductService from '@/services/Products/ProductService'
+import ProductService from '@/services/ProductService'
 
 export default {
   data() {

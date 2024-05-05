@@ -136,7 +136,7 @@ import * as yup from 'yup'
 import { captureErrorYup } from '@/utils/captureErrorYup'
 import { schemaCreateCustomer } from '@/validations/customerCreate.validations.js'
 
-import CustomerService from '@/services/Customers/CustomerService'
+import CustomerService from '@/services/CustomerService'
 import axios from 'axios'
 
 export default {
