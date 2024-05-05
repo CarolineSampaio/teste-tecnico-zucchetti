@@ -6,7 +6,7 @@ class ProductService {
     return response.data
   }
 
-  async getAllproducts() {
+  async getAllProducts() {
     const response = await api.get('products')
     return response.data
   }

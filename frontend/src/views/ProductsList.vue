@@ -55,7 +55,7 @@ export default {
 
   methods: {
     getProducts() {
-      ProductService.getAllproducts()
+      ProductService.getAllProducts()
         .then((response) => {
           for (let i = 0; i < response.length; i++) {
             response[i].price = this.formatPrice(response[i].price)
