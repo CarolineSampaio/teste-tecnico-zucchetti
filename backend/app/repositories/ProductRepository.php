@@ -36,7 +36,7 @@ class ProductRepository extends Database implements ProductRepositoryInterface
 
     public function getAll()
     {
-        $sql = 'SELECT * FROM products';
+        $sql = 'SELECT * FROM products ORDER BY id ASC';
         $stmt = ($this->getConnection())->prepare($sql);
         $stmt->execute();
 
