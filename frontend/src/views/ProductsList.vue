@@ -3,7 +3,7 @@
     <h1>Products List</h1>
 
     <div class="align-end">
-      <router-link to="/products/new">
+      <router-link to="/product/new">
         <button>New Product</button>
       </router-link>
     </div>
@@ -67,12 +67,21 @@ export default {
           console.log(error)
         })
     },
-
     formatPrice(price) {
       return new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL'
       }).format(price)
+    },
+
+    deleteproduct(id) {
+      ProductService.deleteOne(id)
+        .then(() => {
+          this.getProducts()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }
