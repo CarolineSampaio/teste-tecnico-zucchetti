@@ -3,6 +3,7 @@ import CustomersList from '../views/CustomersList.vue'
 import CustomersNew from '../views/CustomersNew.vue'
 import ProductsList from '../views/ProductsList.vue'
 import ProductsNew from '../views/ProductsNew.vue'
+import PaymentsList from '../views/PaymentsList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -36,6 +37,11 @@ const router = createRouter({
       path: '/product/:id/edit',
       name: 'edit product',
       component: ProductsNew
+    },
+    {
+      path: '/payments',
+      name: 'list payments methods',
+      component: PaymentsList
     }
   ]
 })
