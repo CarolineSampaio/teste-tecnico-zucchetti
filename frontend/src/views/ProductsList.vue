@@ -30,7 +30,7 @@
                 <button>Edit</button>
               </router-link>
 
-              <button @click="deleteproduct(product.id)">Delete</button>
+              <button @click="deleteProduct(product.id)">Delete</button>
             </div>
           </td>
         </tr>
@@ -74,7 +74,7 @@ export default {
       }).format(price)
     },
 
-    deleteproduct(id) {
+    deleteProduct(id) {
       ProductService.deleteOne(id)
         .then(() => {
           this.getProducts()
