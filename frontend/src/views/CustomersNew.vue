@@ -124,7 +124,7 @@
       </div>
 
       <div class="buttons">
-        <router-link to="/"><button>Back</button></router-link>
+        <router-link to="/customers"><button>Back</button></router-link>
         <button type="submit">{{ customerId ? 'Edit' : 'Register' }}</button>
       </div>
     </form>
