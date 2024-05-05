@@ -1,10 +1,10 @@
 INSERT INTO orders (customer_id, payment_id, installments, total)
 VALUES
-    (1, 1, 3, 75.00),
-    (2, 2, 4, 180.00),
-    (3, 3, 5, 205.00),
-    (4, 4, 2, 220.00),
-    (5, 5, 1, 290.00);
+    (1, 1, 2, 75.00),
+    (2, 2, 1, 180.00),
+    (3, 1, 3, 205.00),
+    (4, 4, 1, 220.00),
+    (5, 1, 5, 290.00);
 
 INSERT INTO orderDetails (order_id, product_id, quantity, unit_price)
 VALUES
