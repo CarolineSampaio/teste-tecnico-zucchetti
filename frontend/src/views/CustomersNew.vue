@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <main>
-    <h1>New Customer</h1>
+    <h1>{{ customerId ? 'Edit Customer' : 'New Customer' }}</h1>
 
     <form @submit.prevent="handleSubmit" class="formNew">
       <div class="formElement">
@@ -125,7 +125,7 @@
 
       <div class="buttons">
         <router-link to="/"><button>Back</button></router-link>
-        <button type="submit">Register</button>
+        <button type="submit">{{ customerId ? 'Edit' : 'Register' }}</button>
       </div>
     </form>
   </main>
@@ -155,10 +155,28 @@ export default {
         state: ''
       },
       addressRequested: false,
-      errors: {}
+      errors: {},
+
+      customerId: this.$route?.params?.id
+    }
+  },
+  mounted() {
+    if (this.customerId) {
+      this.getCustomer()
     }
   },
   methods: {
+    getCustomer() {
+      CustomerService.getOne(this.customerId)
+        .then((response) => {
+          this.customer = response
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+
     validateSync() {
       this.errors = {}
       try {
@@ -178,6 +196,19 @@ export default {
     handleSubmit() {
       try {
         if (this.validateSync() === false) return
+
+        if (this.customerId) {
+          CustomerService.updateOne(this.customerId, this.customer)
+            .then(() => {
+              this.errors = {}
+              alert('Customer updated successfully!')
+            })
+            .catch((error) => {
+              alert('Error updating customer!')
+              console.log(error)
+            })
+          return
+        }
 
         CustomerService.createOne(this.customer)
           .then(() => {

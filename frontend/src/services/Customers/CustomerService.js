@@ -10,6 +10,16 @@ class CustomerService {
     const response = await api.get('customers')
     return response.data
   }
+
+  async getOne(id) {
+    const response = await api.get(`customers?id=${id}`)
+    return response.data
+  }
+
+  async updateOne(id, body) {
+    const response = await api.put(`customers?id=${id}`, body)
+    return response.data
+  }
 }
 
 export default new CustomerService()

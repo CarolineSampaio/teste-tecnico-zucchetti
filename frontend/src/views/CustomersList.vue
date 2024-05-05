@@ -40,7 +40,10 @@
           </td>
           <td>
             <div class="buttons">
-              <button>Edit</button>
+              <router-link :to="`/customer/${customer.id}/edit`">
+                <button>Edit</button>
+              </router-link>
+
               <button>Delete</button>
             </div>
           </td>

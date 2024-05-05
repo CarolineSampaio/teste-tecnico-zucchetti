@@ -14,6 +14,11 @@ const router = createRouter({
       path: '/customer/new',
       name: 'add customer',
       component: CustomersNew
+    },
+    {
+      path: '/customer/:id/edit',
+      name: 'edit customer',
+      component: CustomersNew
     }
   ]
 })
