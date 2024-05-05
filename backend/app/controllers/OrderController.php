@@ -60,7 +60,7 @@ class OrderController
         $response = $this->orderService->updateOrder($id, getBody());
 
         if ($response['success'] === true) {
-            response(["message" => "Order updated"], 201);
+            response(["message" => "Order updated"], 200);
         } else {
             responseError($response['message'], 400);
         }

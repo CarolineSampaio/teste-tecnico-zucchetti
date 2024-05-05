@@ -51,7 +51,7 @@ class PaymentMethodController
         $result = $this->paymentMethodService->updatePaymentMethod($id, getBody());
 
         if ($result['success'] === true) {
-            response(["message" => "Payment method updated"], 201);
+            response(["message" => "Payment method updated"], 200);
         } else {
             responseError("Unable to update", 400);
         }
