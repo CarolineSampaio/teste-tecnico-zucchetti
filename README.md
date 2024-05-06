@@ -67,10 +67,11 @@ Base URL: `http://localhost/`
 
 ### Back-end
 
-O banco de dados para teste foi configurado no docker, por isso, após configurar o ambiente basta executar:
+O banco de dados para teste foi configurado no docker, por isso, após configurar o ambiente (docker compose up) basta executar:
 
 ```bash
-composer docker-test
+composer install
+composer test
 ```
 
 ## Melhorias
