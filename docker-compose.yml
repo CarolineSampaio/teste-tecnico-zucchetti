@@ -1,0 +1,50 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./backend:/var/www
+      - ./backend/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./backend/nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: api_ecommerce
+      DB_USER: admin
+      DB_PASS: admin
+    volumes:
+      - ./backend:/var/www:cached
+
+  db:
+    image: bitnami/postgresql:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: api_ecommerce
+    volumes:
+      - ./backend/app/migrations:/docker-entrypoint-initdb.d
+
+  db_test:
+    image: bitnami/postgresql:latest
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: api_ecommerce_test
+    volumes:
+      - ./backend/app/migrations:/docker-entrypoint-initdb.d
