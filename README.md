@@ -59,6 +59,7 @@ composer install
 Para garantir o correto funcionamento do front-end, retorne para a pasta raiz e execute os seguintes comandos:
 
 ```bash
+cd .. #retornando para a raiz
 cd frontend
 npm install
 ```
@@ -68,6 +69,7 @@ npm install
 O comando abaixo deve ser executado na raiz "teste-tecnico-zucchetti". O mesmo criará as imagens necessárias, configurará o banco de dados da aplicação e o de testes, executará os seeders para preenchimento inicial de dados, e inicializará tanto o servidor frontend quanto o back-end.
 
 ```sh
+cd .. #retornando para a raiz
 docker compose up  # para rodar em background adicione -d
 ```
 
