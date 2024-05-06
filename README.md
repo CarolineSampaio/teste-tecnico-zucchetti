@@ -73,6 +73,16 @@ cd .. #retornando para a raiz
 docker compose up  # para rodar em background adicione -d
 ```
 
+### Desativação da Virtualização
+
+Para desativar completamente a virtualização, rode o comando:
+
+```sh
+docker compose down
+```
+
+Atenção, se esse comando for executado, será necessário refazer todo o processo de setup pois tudo será apagado.
+
 ## Acessando a aplicação
 
 Após a configuração do ambiente, ambos os servidores já estão ativos e prontos para serem acessados:
