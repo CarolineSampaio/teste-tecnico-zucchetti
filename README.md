@@ -45,7 +45,27 @@ code ./ #Abrirá o Vscode na raiz do projeto
 
 ### Configure o ambiente
 
-O comando abaixo, criará as imagens necessárias, configurará o banco de dados da aplicação e o de testes, executará os seeders para preenchimento inicial de dados, e inicializará tanto o servidor frontend quanto o back-end.
+### Back-end
+
+Para garantir o correto funcionamento do back-end, execute os seguintes comandos:
+
+```bash
+cd backend
+composer install
+```
+
+### Front-end
+
+Para garantir o correto funcionamento do front-end, retorne para a pasta raiz e execute os seguintes comandos:
+
+```bash
+cd frontend
+npm install
+```
+
+### Docker
+
+O comando abaixo deve ser executado na raiz "teste-tecnico-zucchetti". O mesmo criará as imagens necessárias, configurará o banco de dados da aplicação e o de testes, executará os seeders para preenchimento inicial de dados, e inicializará tanto o servidor frontend quanto o back-end.
 
 ```sh
 docker compose up  # para rodar em background adicione -d
