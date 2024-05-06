@@ -58,7 +58,7 @@ class CustomerRepository extends Database implements CustomerRepositoryInterface
 
     public function getAll()
     {
-        $sql = 'SELECT * FROM customers order by id ASC';
+        $sql = 'SELECT * FROM customers ORDER BY id ASC';
         $stmt = ($this->getConnection())->prepare($sql);
         $stmt->execute();
 

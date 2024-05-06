@@ -51,7 +51,7 @@ class CustomerController
         $result = $this->customerService->updateCustomer($id, getBody());
 
         if ($result['success'] === true) {
-            response(["message" => "Customer updated"], 201);
+            response(["message" => "Customer updated"], 200);
         } else {
             responseError("Unable to update", 400);
         }

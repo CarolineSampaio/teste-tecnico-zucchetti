@@ -1,0 +1,23 @@
+{
+    "name": "zucchetti/backend",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^11.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "symfony/process": "^7.0"
+    },
+    "scripts": {
+        "test": "phpunit --testdox",
+        "docker-test": "docker compose run php composer test"
+    },
+    "autoload": {
+        "psr-4": {
+            "Backend\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}

@@ -35,7 +35,7 @@ class PaymentMethodRepository extends Database implements PaymentMethodRepositor
 
     public function getAll()
     {
-        $sql = 'SELECT * FROM paymentmethods';
+        $sql = 'SELECT * FROM paymentmethods ORDER BY id ASC';
         $stmt = ($this->getConnection())->prepare($sql);
         $stmt->execute();
 

@@ -26,4 +26,7 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /composer
 ENV PATH $PATH:/composer/vendor/bin
 
+COPY composer.json composer.lock ./
+RUN composer install
+
 WORKDIR /var/www

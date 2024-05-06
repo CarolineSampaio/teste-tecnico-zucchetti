@@ -51,7 +51,7 @@ class ProductController
         $result = $this->productService->updateProduct($id, getBody());
 
         if ($result['success'] === true) {
-            response(["message" => "Product updated"], 201);
+            response(["message" => "Product updated"], 200);
         } else {
             responseError("Unable to update", 400);
         }
