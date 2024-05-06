@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="menu">
-      <img src="@/assets/logo-clip.png" alt="logo linha clipp" />
+      <img src="@/assets/logo-clip.png" alt="logo linha clipp" @click="redirectToHome" />
       <nav>
         <router-link to="/">Home</router-link>
         <router-link to="/customers">Customers</router-link>
@@ -15,7 +15,13 @@
 
 <script>
 export default {
-  name: 'HeaderMenu'
+  name: 'HeaderMenu',
+
+  methods: {
+    redirectToHome() {
+      window.location.href = '/'
+    }
+  }
 }
 </script>
 
@@ -26,9 +32,10 @@ header {
 }
 
 img {
-  margin: 0 0 0 8%;
+  margin: 0 0 0 5%;
   padding: 5px;
   height: 80px;
+  cursor: pointer;
 }
 
 .menu {
@@ -40,7 +47,7 @@ img {
 nav {
   display: flex;
   gap: 20px;
-  margin: 0 8% 0 0;
+  margin: 0 5% 0 0;
 }
 
 nav a {
