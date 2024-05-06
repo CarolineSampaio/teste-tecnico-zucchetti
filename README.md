@@ -65,9 +65,11 @@ composer docker-test
 
 - [x] **Dockerizar a aplicação/ambiente de desenvolvimento:** Implementar o uso de Docker para simplificar o ambiente de desenvolvimento e garantir consistência entre diferentes máquinas.
 
+- [x] **Utilizar a cláusula FOR UPDATE nas consultas SQL** Adotar a cláusula FOR UPDATE em consultas SQL para controlar a concorrência em operações de atualização de dados no banco de dados.
+
 - [x] **Implementar testes unitários no back-end:** Desenvolver testes automatizados para verificar o comportamento de unidades de código no back-end, aumentando a confiabilidade e a robustez do sistema.
 
-- [x] **Utilizar a cláusula FOR UPDATE nas consultas SQL** Adotar a cláusula FOR UPDATE em consultas SQL para controlar a concorrência em operações de atualização de dados no banco de dados.
+- **Implementar testes unitários no front-end:** Desenvolver testes automatizados para verificar o comportamento de unidades de código no front-end, garantindo o correto funcionamento da interface.
 
 - **Autenticação:** Introduzir um sistema de autenticação robusto e seguro para controlar o acesso aos recursos da aplicação, garantindo a proteção dos dados e a segurança das operações realizadas pelos usuários.
 
